@@ -1,0 +1,56 @@
+$dark-text-default: #000 !default;
+$light-text-default: #fff !default;
+
+/**
+ * Calculates the brightness of a given color
+ *
+ * @param color $color - The color brightness to be calculated
+ * @return number - A brightness percentage value
+ */
+@function brightness($color) {
+  @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
+}
+
+/**
+ * Obtain the proper contrast color for the passed color brightness (white or black)
+ *
+ * @param number $primary-brightness - The brightness of the site's primary color
+ * @return color - White if primary-brightness is low and black if primary-brightness is high
+ */
+@function get-proper-contrast($primary-brightness, $light, $dark){
+  $light-text-brightness: brightness($light);
+  $dark-text-brightness: brightness($dark);
+  @return if(abs($primary-brightness - $light-text-brightness) > abs($primary-brightness - $dark-text-brightness), $light, $dark);
+}
+
+
+/** Compares contrast of a given color to the light/dark arguments and returns a color with highest contrast.
+ *  This function takes $primary-color and $secondary-color into account to get the best possible value.
+ *
+ * @param color $primary-color - The primary color of the site
+ * @param color $secondary-color - The secondary color of the site
+ * @param color $dark - Default value of #000 (black)
+ * @param color $light - Default value of #fff (white)
+ *
+ * @return color - Contrast corrected color for alert box
+ */
+@function color-contrast($primary-color, $secondary-color, $dark: $dark-text-default, $light: $light-text-default) {
+
+  $threshold: 20;
+  $primary-brightness: brightness($primary-color);
+  $secondary-brightness: brightness($secondary-color);
+
+  @if $primary-color == null {
+    @return null;
+  }
+  @else if $primary-color != $secondary-color {
+    //if the two colors aren't the same but their brightness differential is low:
+    @if abs($primary-brightness - $secondary-brightness) < $threshold {
+      @return get-proper-contrast($primary-brightness, $light, $dark);
+    }
+    @return $secondary-color;
+  }
+  @else {
+    @return get-proper-contrast($primary-brightness, $light, $dark);
+  }
+}

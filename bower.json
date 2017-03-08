@@ -1,0 +1,29 @@
+{
+  "name": "color-contrast",
+  "homepage": "https://github.com/advisorwebsites/colour-contrast",
+  "authors": [
+    "Dan LaFreniere <lafreniere.dj@gmail.com>"
+  ],
+  "description": "A contrasting function for aw_theme alert boxes",
+  "main": "color-contrast.scss",
+  "keywords": [
+    "advisor",
+    "websites",
+    "alert",
+    "box",
+    "foundation",
+    "theme",
+    "contrast",
+    "function",
+    "scss",
+    "sass"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,2 +1,2 @@
-# colour-contrast
-A bower module for colour contrasting (SASS)
+# color-contrast
+A bower module for color contrasting (SASS)
